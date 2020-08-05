@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>My Bot Poems</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style type="text/css">
+      body {
+        background-color: #f0f0f0;
+      }
+      .wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 350px);
+        grid-column-gap: 7em;
+        grid-row-gap: 4em;
+        margin: 2em;
+        justify-content: center;
+      }
+      div.header {
+        display: flex;
+        justify-content: center;
+      }
+      div.header>h1 {
+        background-color: lightcyan;
+        border: 1px dashed lightgrey;
+        padding: .5rem 2rem;
+        box-shadow: 3px 3px 2px 1px rgba(0, 0, 255, .2);
+      }
+      div.poem>a.btn {
+        display:block;
+      }
+      p {
+        padding: 1em 3em;
+      }
+      div.poem {
+        background-color: #fff;
+        border: 1px solid lightgrey;
+      }
+      div.item {
+        /* margin: auto; */
+        text-align: center;
+        padding:1em 0;
+      }
+      div.poem:first-child {
+        border:none;
+      }
+    </style>
+  </head>
+<body>
+  <div>
+  <div class="header">
+    <h1>My Poems</h1>
+  </div>
+  <div class="wrapper">
+    <div class="item">
+      <a href="{{ url_for('poem') }}" class="btn btn-lg btn-primary">Create New Poem</a>
+    </div>
+    {% for poem in poems %}
+      <div data-id={{poem.id}} class="poem item">
+        <h2>{{ poem.title | safe}}</h2>
+        <p>{{ poem.body.replace('\n', '<br>') | safe }}</p>
+        <small>created at {{ poem.created_at }}</small> 
+        <form method="post" action="{{ url_for('delete', id=poem.id) }}">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<h1>{{ title | safe }}</h1>
+<p>{{ poem.replace('\n', '<br>') | safe }}</p>
+
+<small>Refresh the page to get a new poem</small>
+<br><br>
+
+<a href="{{ url_for('poems') }}">See all poems</a>
